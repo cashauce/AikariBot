@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "@types/ws": "^8.18.1",
+    "discord.js": "^14.26.3",
+    "@discordjs/rest": "^1.5.0",
+    "discord-api-types": "^0.37.39"
+  },"scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch src/index.ts"
+  },
+  "name": "aikari",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true
+}
