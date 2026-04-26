@@ -1,8 +1,30 @@
 import { Client, GatewayIntentBits, Events } from "discord.js";
+import { DisTube } from "distube";
+// import { SpotifyPlugin } from "@distube/spotify";
+import { SoundCloudPlugin } from "@distube/soundcloud";
 import { loadCommands, commands } from "./handlers/commandHandler";
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildMessages
+  ],
+});
+
+  // Initializing DisTube
+(client as any).distube = new DisTube(client, {
+  emitNewSongOnly: true,
+  savePreviousSongs: false,
+  plugins: [
+    new SoundCloudPlugin()
+  ]
+});
+
+(client as any).distube.on("playSong", (queue: any, song: any) => {
+   // song.name is correct
+   // song.formattedDuration is the pre-formatted "00:00" string
+   queue.textChannel.send(`Now playing: **${song.name}** - \`${song.formattedDuration}\``);
 });
 
 client.once(Events.ClientReady, async () => {
